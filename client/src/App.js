@@ -1,11 +1,11 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Login from './Login';
-import Dashbord from './Dashbord';
+import "bootstrap/dist/css/bootstrap.min.css"
+import Login from "./Login"
+import Dashboard from "./Dashboard"
 
-const code = new URLSearchParams(window.location.search).get('code');
+const code = new URLSearchParams(window.location.search).get("code")
 
 function App() {
-  return  code ? <Dashbord code={code} /> : <Login />  
+  return code ? <Dashboard code={code} /> : <Login />
 }
 
-export default App;
+export default App
