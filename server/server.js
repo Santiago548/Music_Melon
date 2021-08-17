@@ -5,7 +5,7 @@ const SpotifyWebApi = require("spotify-web-api-node");
 
 const app = express();
 app.use(cors())
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post('/refresh', (req, res) => {
   const refreshToken = req.body.refreshToken
@@ -37,7 +37,7 @@ app.post("/login", (req, res) => {
     redirectUri: "http://localhost:3000",
     clientId: "0d93ef1877de493f8b39aae874391a57",
     clientSecret: "c2f72e4060544515ae14f51ba8664867",
-  });
+  })
 
   spotifyApi.authorizationCodeGrant(code).then((data) => {
     res.json({
@@ -50,6 +50,11 @@ app.post("/login", (req, res) => {
       console.log(err)
       res.sendStatus(400)
   })
-});
+})
+
+app.get('/lyrics', async (reg, res) => {
+  const lyrics = await lyricsFinder(req.query.artist, req.query.track) || "No Lyrics Found"
+  res.json({ lyrics })
+})
 
 app.listen(3001)
